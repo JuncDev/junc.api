@@ -10,11 +10,13 @@ by( "Lis" )
 shared interface Junc
 {
 	
-	"`True` if all running threads have high load level and no any thread can be added and `false` otherwise."
-	shared formal Boolean overloaded;
+	"`True` if more threads may be added and `false` if thread number limit has been reached."
+	shared formal Boolean threadable;
 	
-	"Creates new track."
-	shared formal JuncTrack newTrack();
+	"Creates new track independent from this.  
+	 Returns `promise` on newly created track.
+	 "
+	shared formal Promise<JuncTrack> createTrack();
 	
 	"Creates linked socket pair with first socket works on `first` context and second works on `second` context."
 	shared formal [JuncSocket<From, To>, JuncSocket<To, From>] socketPair<From, To> (

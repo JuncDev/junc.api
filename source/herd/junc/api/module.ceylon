@@ -17,7 +17,7 @@
  Context may not be instantiated separately, it is always go together with track.  
  
  _Track_ ([[JuncTrack]]) provides registration, deploying and instantiation _Junc_ elements. 
- Track is provided to _station_ at deploying (see below) also new track may be created using [[Junc.newTrack]].  
+ Track is provided to _station_ at deploying (see below) also new track may be created using [[Junc.createTrack]].  
  
  
  #### Promise and resolver.
@@ -140,6 +140,8 @@
  				);
  			}
  		);
+ 		
+ 		...
  		
  		// connecting to service with message
  		track.connect<StringMessage, StringMessage, ServiceAddress>(address).onComplete (

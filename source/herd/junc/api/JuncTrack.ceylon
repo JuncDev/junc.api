@@ -3,7 +3,7 @@
  * work context to execute functions and methods of _junc_ elements.
  * instantiation, registration  and deploying _junc_ elements
  "
-see( `function Station.start`, `function Junc.newTrack` )
+see( `function Station.start` )
 tagged( "work flow" )
 by( "Lis" )
 shared interface JuncTrack
@@ -11,7 +11,7 @@ shared interface JuncTrack
 	"Work context all functions (promises, timers, sockets, services) within _junc track_ are executed on this work context."
 	shared formal Context context;
 	
-	"Load level on the track."
+	"The track load level."
 	shared formal LoadLevel loadLevel;
 	
 	"`True` if this track has been closed and `false` otherwise."
@@ -36,13 +36,22 @@ shared interface JuncTrack
 	);
 
 
-	"Connects to remote [[address]]."
+	"Connects to remote [[address]].  
+	 `To` is data type socket emits.  
+	 `From` is data type socket publishes.  
+	 Service with address `address` which admits data types `To`-`From` has to be registerd before
+	 using [[registerService]] method.
+	 "
+	see( `function registerService` )
 	shared formal Promise<JuncSocket<To, From>> connect<To, From, Address> (
 		"Address to connect to." Address address
 	) given Address satisfies JuncAddress;
 	
 	"Registers new service on this track.  
+	 `From` is type of data service sends to client.  
+	 `To` is type of data service receives from client.  
 	 Returns promise resolved with created service or rejected if some error occured."
+	see( `function connect` )
 	shared formal Promise<JuncService<From, To>> registerService<From, To, Address> (
 		"Address of newly created service." Address address
 	) given Address satisfies JuncAddress;

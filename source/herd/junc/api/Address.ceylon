@@ -36,3 +36,4 @@ shared final class ServiceAddress( shared String service ) extends JuncAddress()
 	shared actual String string => "junc://" + service;
 	
 }
+

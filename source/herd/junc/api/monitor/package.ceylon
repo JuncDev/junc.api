@@ -1,15 +1,16 @@
 
-"Staff to incorporate application lifecycle monitoring.
+"Staff to incorporate application lifecycle monitoring.  
  
  Object of [[Monitor]] interface is available via [[herd.junc.api::Junc]] and provides
- logging and instrumenting capabilities.
+ logging and instrumenting capabilities.  
  
- #### Logging.
- To write logs [[LogWriter]] has to be registerd within [[Monitor]] object.  
+ #### Logging.  
+ 
  Log is pushed using `Monitor.logXXX` methods.  
  
- #### Metrics.
- To write metrics [[MetricWriter]] has to be registerd within [[Monitor]] object.  
+ 
+ #### Metrics.  
+ 
  Metrics can be created using corresponding methods of [[Monitor]] object.  
  Available metrics:
  * [[Gauge]] represents a value, created using [[Monitor.gauge]]

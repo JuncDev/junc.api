@@ -1,5 +1,7 @@
 
-"Message which may be replied."
+"Messages provide a way to organize dialogs:
+ once message is received it may be replied with some data or rejected with an error.
+ "
 see( `function JuncTrack.createMessage` )
 tagged( "communication" )
 by( "Lis" )

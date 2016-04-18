@@ -1,6 +1,6 @@
 
 "_Junc_ service is an element which can be connected to with [[JuncSocket]] and asked to perform some pay load."
-see( `function JuncTrack.registerService`, `function JuncTrack.connect` )
+see( `function JuncTrack.registerService`, `function JuncTrack.connect`, `class MultiService` )
 tagged( "communication" )
 by( "Lis" )
 shared interface JuncService<in From, in To>
@@ -23,9 +23,7 @@ shared interface JuncService<in From, in To>
 	
 	"Adds connection listeners which will be called at new connection request.  
 	 Returns registration to cancel listenning."
-	shared formal Registration onConnected<Receive, Send>( void connected( JuncSocket<Receive, Send> socket ) )
-			given Receive satisfies To
-			given Send satisfies From;
+	shared formal Registration onConnected( void connected( JuncSocket<To, From> socket ) );
 	
 	"Adds service error listener.  
 	 Returns registration to cancel listenning."
