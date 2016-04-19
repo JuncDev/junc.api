@@ -21,12 +21,12 @@ shared interface ConnectorDescriptorAny => ConnectorDescriptor<Nothing, Nothing,
 see( `class WorkshopAddedEvent`, `class WorkshopRemovedEvent`, `function Junc.registeredWorkshops` )
 tagged( "work flow" )
 by( "Lis" )
-shared interface WorkshopDescriptor<in From, in To, in Address>
+shared interface WorkshopDescriptor<in From, in To, out Address>
 		given Address satisfies JuncAddress
 {
 	
 	"Returns a list of available services with given types."
-	shared formal {ServiceDescriptor<Send, Receive>*} services<Send, Receive>()
+	shared formal {ServiceDescriptor<Send, Receive, Address>*} services<Send, Receive>()
 			given Send satisfies From
 			given Receive satisfies To;
 	
@@ -37,7 +37,7 @@ shared interface WorkshopDescriptor<in From, in To, in Address>
 see( `class WorkshopAddedEvent`, `class WorkshopRemovedEvent`, `function Junc.registeredWorkshops` )
 tagged( "work flow" )
 by( "Lis" )
-shared interface WorkshopDescriptorAny => WorkshopDescriptor<Nothing, Nothing, Nothing>;
+shared interface WorkshopDescriptorAny => WorkshopDescriptor<Nothing, Nothing, Anything>;
 
 
 "Descriptor of [[JuncService]]:
@@ -48,10 +48,10 @@ shared interface WorkshopDescriptorAny => WorkshopDescriptor<Nothing, Nothing, N
 see( `class ServiceAddedEvent`, `class ServiceClosedEvent` )
 tagged( "work flow" )
 by( "Lis" )
-shared interface ServiceDescriptor<in From, in To>
+shared interface ServiceDescriptor<in From, in To, out Address> given Address satisfies JuncAddress
 {
 	"Address this service listens to."
-	shared formal JuncAddress address;
+	shared formal Address address;
 	
 	"Total number of services registered with address [[address]]."
 	shared formal Integer count;
@@ -64,5 +64,5 @@ shared interface ServiceDescriptor<in From, in To>
 see( `class ServiceAddedEvent`, `class ServiceClosedEvent` )
 tagged( "work flow" )
 by( "Lis" )
-shared interface ServiceDescriptorAny => ServiceDescriptor<Nothing, Nothing>;
+shared interface ServiceDescriptorAny => ServiceDescriptor<Nothing, Nothing, Anything>;
 

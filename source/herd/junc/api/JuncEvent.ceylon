@@ -4,19 +4,20 @@ see( `value JuncTrack.juncEvents` )
 tagged( "work flow" )
 by( "Lis" )
 shared abstract class JuncEvent()
-		of	ServiceAddedEvent<Nothing, Nothing> | ServiceClosedEvent<Nothing, Nothing>
+		of	ServiceAddedEvent<Nothing, Nothing, JuncAddress> | ServiceClosedEvent<Nothing, Nothing, JuncAddress>
 			| ConnectorAddedEvent<Nothing, Nothing, Nothing> | ConnectorRemovedEvent<Nothing, Nothing, Nothing>
-			| WorkshopAddedEvent<Nothing, Nothing, Nothing> | WorkshopRemovedEvent<Nothing, Nothing, Nothing>
+			| WorkshopAddedEvent<Nothing, Nothing, JuncAddress> | WorkshopRemovedEvent<Nothing, Nothing, JuncAddress>
 {}
 
 
 "New service has been added event."
 tagged( "work flow" )
 by( "Lis" )
-shared final class ServiceAddedEvent<in From, in To> (
-	"Descriptor of added service." shared ServiceDescriptor<From, To> service
+shared final class ServiceAddedEvent<in From, in To, out Address> (
+	"Descriptor of added service." shared ServiceDescriptor<From, To, Address> service
 )
 		extends JuncEvent()
+		given Address satisfies JuncAddress
 {
 	shared actual String string => "Event: ``service`` has been added";
 }
@@ -24,10 +25,11 @@ shared final class ServiceAddedEvent<in From, in To> (
 "Service has been closed event."
 tagged( "work flow" )
 by( "Lis" )
-shared final class ServiceClosedEvent<in From, in To> (
-	"Descriptor of closed service." shared ServiceDescriptor<From, To> service
+shared final class ServiceClosedEvent<in From, in To, out Address> (
+	"Descriptor of closed service." shared ServiceDescriptor<From, To, Address> service
 )
 		extends JuncEvent()
+		given Address satisfies JuncAddress
 {
 	shared actual String string => "Event: ``service`` has been closed";
 }
@@ -52,6 +54,7 @@ shared final class ConnectorRemovedEvent<in From, in To, in Address> (
 	"Descriptor of removed connector." shared ConnectorDescriptor<From, To, Address> connector
 )
 		extends JuncEvent()
+		given Address satisfies JuncAddress
 {
 	shared actual String string => "Event: ``connector`` has been removed";
 }
@@ -60,10 +63,11 @@ shared final class ConnectorRemovedEvent<in From, in To, in Address> (
 "New workshop has been added event."
 tagged( "work flow" )
 by( "Lis" )
-shared final class WorkshopAddedEvent<in From, in To, in Address> (
+shared final class WorkshopAddedEvent<in From, in To, out Address> (
 	"Descriptor of added workshop." shared WorkshopDescriptor<From, To, Address> workshop
 )
 		extends JuncEvent()
+		given Address satisfies JuncAddress
 {
 	shared actual String string => "Event: ``workshop`` has been added";
 }
@@ -71,10 +75,11 @@ shared final class WorkshopAddedEvent<in From, in To, in Address> (
 "Workshop has been removed event."
 tagged( "work flow" )
 by( "Lis" )
-shared final class WorkshopRemovedEvent<in From, in To, in Address> (
+shared final class WorkshopRemovedEvent<in From, in To, out Address> (
 	"Descriptor of removed workshop." shared WorkshopDescriptor<From, To, Address> workshop
 )
 		extends JuncEvent()
+		given Address satisfies JuncAddress
 {
 	shared actual String string => "Event: ``workshop`` has been removed";
 }
