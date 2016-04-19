@@ -22,14 +22,14 @@ shared interface Workshop<in From, in To, in Address>
 		given Address satisfies JuncAddress
 {
 	"Creates new service.  
-	 Has to return promise on [[context]] resolved with message with newly created service
+	 Has to return promise on [[track]] resolved with message with newly created service
 	 or rejected if error occured.  
 	 The message will be replied when service is actually starts listens on connections and so
 	 may establish connections to.
 	 "
 	shared formal Promise<Message<JuncService<Send, Receive>, Null>> provideService<Send, Receive> (
 		"Service address." Address address,
-		"Context service has to work on" Context context
+		"Track service has to work on" JuncTrack track
 	)
 			given Send of From
 			given Receive of To;
